@@ -42,7 +42,7 @@ fn handle(req: []u8) []const u8 {
     return zeejango.send(.{
                 .header = zeejango.default_header,
                 .body = "<h1>Hello from Zeb!</h1>",
-            });
+    });
 }
 
 pub fn main() !void {
