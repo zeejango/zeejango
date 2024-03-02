@@ -81,7 +81,7 @@ const header_with_file = struct {
 // }
 
 fn readFile(path_file: []const u8) []const u8 {
-    var buf: [800000]u8 = undefined;
+    var buf: [1000000]u8 = undefined;
     buf = undefined;
     const content = std.fs.cwd().readFile(path_file, &buf) catch return "file not found";
     return content;
@@ -118,7 +118,7 @@ pub const request = struct {
         var res = std.mem.tokenizeAny(u8, of, " ");
         _ = res.next().?;
         const second_index = res.next().?;
-        if (find(u8, second_index, "?") != null) { // it contains ? means its a request from user
+        if (find(u8, second_index, "?") != null) { // it contains ? means its a get request from user
             var resum = std.mem.tokenize(u8, second_index, "?");
             _ = resum.next().?;
             const the_thing_after_q_mark = resum.next().?;
