@@ -25,9 +25,9 @@
 
 ```zig
 .zeejango = .{
-    .url = "https://github.com/zeejango/zeejango/archive/refs/tags/0.0.1.tar.gz",
-    .hash = "1220e93849b6e90bc8e7186be4000a1a5ce00d0d6441685b37015d223578d495602e",
-} 
+    .url = "https://github.com/zeejango/zeejango/archive/refs/tags/0.0.1.5.tar.gz",
+    .hash = "122054411f8525f4fb7d634c011c83e6d460f46ab3b47ac17bab5976d0f4137080ec",
+}
 ```
 - inside `build.zig` file add this:
 ```zig
@@ -39,10 +39,30 @@ const std = @import("std");
 const zeejango = @import("zeejango");
 
 fn handle(req: []u8) []const u8 {
-    return zeejango.send(.{
+    if (zeejango.method(req) == zeejango.GET) {
+        if (zeejango.path(req, "/")) {
+            return zeejango.send(.{
                 .header = zeejango.default_header,
-                .body = "<h1>Hello from Zeb!</h1>",
-    });
+                .body = "<h1>Hello from Zeejango!</h1><a href='/view_file'>Click to see a html file.</a>",
+            });
+        } else if (zeejango.path(req, "/view_file")) {
+            return zeejango.send_file(.{
+                .header = zeejango.default_header,
+                .file_name = "./html/viewfile.html",
+            });
+        } else if (zeejango.path(req, "/submit")) {
+            return zeejango.send(.{
+                .header = zeejango.default_header,
+                .body = zeejango.request.get(req),
+            });
+        } else {
+            return zeejango.send(.{
+                .header = zeejango.default_header,
+                .body = "<h1>404!</h1>",
+            });
+        }
+    }
+    return "server error";
 }
 
 pub fn main() !void {
@@ -52,6 +72,7 @@ pub fn main() !void {
         zeejango.handle_maker(handle),
     );
 }
+
 
 ```
 - Run: `zig build run`
