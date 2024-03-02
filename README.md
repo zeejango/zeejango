@@ -11,7 +11,7 @@
 - doesn't work on windows.
 ## Run example:
 - Simply open terminal and run:
-    - `git clone https://github.com/RohanVashisht1234/zeejango`
+    - `git clone https://github.com/zeejango/zeejango`
     - `cd zeejango`
     - `zig build run_example`
 
@@ -25,8 +25,8 @@
 
 ```zig
 .zeejango = .{
-    .url = "https://github.com/zeejango/zeejango/archive/refs/tags/0.0.2.tar.gz",
-    .hash = "12207e29a5cbaf3f474285a325480c71964da24d7f1d9f1509bf03340fe595ecd0d7",
+    .url = "https://github.com/zeejango/zeejango/archive/refs/tags/0.0.1.tar.gz",
+    .hash = "1220e93849b6e90bc8e7186be4000a1a5ce00d0d6441685b37015d223578d495602e",
 } 
 ```
 - inside `build.zig` file add this:
