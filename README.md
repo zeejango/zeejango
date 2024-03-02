@@ -46,6 +46,7 @@ fn handle(req: []u8) []const u8 {
                 .body = "<h1>Hello from Zeejango!</h1><a href='/view_file'>Click to see a html file.</a>",
             });
         } else if (zeejango.path(req, "/view_file")) {
+    // create a viewfile.html inside a folder named html
             return zeejango.send_file(.{
                 .header = zeejango.default_header,
                 .file_name = "./html/viewfile.html",
