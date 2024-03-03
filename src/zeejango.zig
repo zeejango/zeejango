@@ -95,19 +95,29 @@ pub fn send_file(x: header_with_file) []const u8 {
 }
 
 pub fn path(of: []u8, is: []const u8) bool {
+    var path_that_prorgammer_has_entered: []const u8 = is;
+    if (is[is.len - 1] == '/' and eql(u8, is, "/") == false) {
+        path_that_prorgammer_has_entered = is[0 .. is.len - 1]; // remove the slash the the programmer has unnesecarilly added
+    }
     var res = std.mem.tokenizeAny(u8, of, " ");
     _ = res.next().?;
-    const second_index = res.next().?;
+    var second_index = res.next().?;
+    if (second_index[second_index.len - 1] == '/' and eql(u8, second_index, "/") == false) {
+        second_index = second_index[0 .. second_index.len - 1]; // remove the slash the the browser has unnesecarilly added
+    }
     if (find(u8, second_index, "?") != null) { // it contains ? means its a request from user
         var resum = std.mem.tokenize(u8, second_index, "?");
-        const the_thing_before_q_mark_after_slash = resum.next().?;
-        if (std.mem.eql(u8, the_thing_before_q_mark_after_slash, is)) {
+        var the_thing_before_q_mark_after_slash = resum.next().?;
+        if (the_thing_before_q_mark_after_slash[the_thing_before_q_mark_after_slash.len - 1] == '/' and eql(u8, the_thing_before_q_mark_after_slash, "/") == false) {
+            the_thing_before_q_mark_after_slash = the_thing_before_q_mark_after_slash[0 .. the_thing_before_q_mark_after_slash.len - 1]; // remove the slash the the browser has unnesecarilly added
+        }
+        if (eql(u8, the_thing_before_q_mark_after_slash, path_that_prorgammer_has_entered)) {
             return true;
         } else {
             return false;
         }
     }
-    if (std.mem.eql(u8, second_index, is)) {
+    if (eql(u8, second_index, path_that_prorgammer_has_entered)) {
         return true;
     }
     return false;
