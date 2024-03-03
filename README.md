@@ -11,7 +11,7 @@
 - doesn't work on windows.
 ## Run example:
 - Simply open terminal and run:
-    - `git clone https://github.com/zeejango/zeejango`
+    - `git clone https://github.com/zeejango/zeejango.git`
     - `cd zeejango`
     - `zig build run_example`
 
@@ -25,9 +25,9 @@
 
 ```zig
 .zeejango = .{
-    .url = "https://github.com/zeejango/zeejango/archive/refs/tags/0.0.1.5.tar.gz",
-    .hash = "122054411f8525f4fb7d634c011c83e6d460f46ab3b47ac17bab5976d0f4137080ec",
-}
+    .url = "https://github.com/zeejango/zeejango/archive/refs/tags/v0.0.2.tar.gz",
+    .hash = "12203ad98bfdc21c9aad97b0c61eb9a1fdc429a666cb54a0ac55261c2732d5bc691c",
+},
 ```
 - inside `build.zig` file add this:
 ```zig
@@ -46,7 +46,7 @@ fn handle(req: []u8) []const u8 {
                 .body = "<h1>Hello from Zeejango!</h1><a href='/view_file'>Click to see a html file.</a>",
             });
         } else if (zeejango.path(req, "/view_file")) {
-    // create a viewfile.html inside a folder named html
+            // create a viewfile.html inside a folder named html
             return zeejango.send_file(.{
                 .header = zeejango.default_header,
                 .file_name = "./html/viewfile.html",
