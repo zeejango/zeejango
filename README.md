@@ -1,9 +1,6 @@
 # Extremely fast backend framework for Zig programming language!
 # Extremely easy as well!
 - **This library is written from scratch!**
-
-## 🙏🙏 Please contribute/support to this project.
-- **[Buy me some coffee](https://www.buymeacoffee.com/rohanvashisht)**
 - **[Join Discord](https://discord.gg/MY27CVbhBQ)**
 
 **Important points to note:**
